@@ -51,7 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseDriver.cs" />
+    <Compile Include="Base\BasePage.cs" />
+    <Compile Include="Base\BaseStep.cs" />
+    <Compile Include="Initializer\InitializeDriver.cs" />
     <Compile Include="PageObjects\AutomationPractice\ContactUs\ContactUsPage.cs" />
+    <Compile Include="PageObjects\AutomationPractice\HomePage.cs" />
     <Compile Include="PageObjects\AutomationPractice\Menu\MenuPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AutomationPractice\Navigation\NavigationSteps.cs" />

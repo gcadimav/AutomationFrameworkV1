@@ -1,26 +1,25 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using PageObjectLibrary.Base;
 
 namespace PageObjectLibrary.PageObjects.AutomationPractice.ContactUs
 {
-    public class ContactUsPage
+    public class ContactUsPage: BasePage
     {
-        IWebDriver webDriver;
-        WebDriverWait wait;
-        Actions actions;
-        public ContactUsPage(IWebDriver webDriver)
-        {
-            this.webDriver = webDriver;
-            wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            actions = new Actions(webDriver);
-        }
+
+        #region web controls
+
+        private IWebElement subjectHeading => GetDriver().FindElement(By.Id("id_contact"));
+        private IWebElement emailInput => GetDriver().FindElement(By.Id("email"));
+        private IWebElement orderReferenceInput => GetDriver().FindElement(By.Id("id_order"));
+        private IWebElement attachFileInput => GetDriver().FindElement(By.Id("fileUpload"));
+        private IWebElement attachFileNameText => GetDriver().FindElement(By.XPath("//span[@class='filename']"));
+        private IWebElement messageInput => GetDriver().FindElement(By.Id("message"));
+        private IWebElement sendButton => GetDriver().FindElement(By.Id("submitMessage"));
+        private IWebElement confirmationLabel => GetDriver().FindElement(By.XPath("//div[@id='center_column']/p"));
+        private IWebElement errorLabel => GetDriver().FindElement(By.XPath("//div[@class='alert alert-danger']/ol/li"));
+
+        #endregion
 
         public enum Options
         {
@@ -30,23 +29,7 @@ namespace PageObjectLibrary.PageObjects.AutomationPractice.ContactUs
         }
 
         public void SelectSubjectHeading(Options option, string value)
-        {
-            //Random rnd = new Random();
-            //int index = rnd.Next(4); //0-4
-            //IList<IWebElement> products = webDriver.FindElements(By.XPath("//div[@class='button-container']/a[@class='button ajax_add_to_cart_button btn btn-default']/span"));
-            //IWebElement productCell = products[index];
-            //actions.MoveToElement(productCell);
-            //productCell.Click();
-
-            ////div[@class='button-container']/a[@class='btn btn-default button button-medium']/span
-
-            //IWebElement checkbox = webDriver.FindElement(By.Id("cgv"));
-            //checkbox.Click();
-            
-
-
-
-            IWebElement subjectHeading = webDriver.FindElement(By.Id("id_contact"));
+        { 
             SelectElement subjectHeadingCombobox = new SelectElement(subjectHeading);
 
             switch (option)
@@ -62,51 +45,41 @@ namespace PageObjectLibrary.PageObjects.AutomationPractice.ContactUs
                     break;
             }            
         }
-
+      
         public void SetEmail(string email)
         {
-            IWebElement emailInput = webDriver.FindElement(By.Id("email"));
             emailInput.SendKeys(email);
         }
 
         public void SetOrderReference(string orderReference)
         {
-            IWebElement orderReferenceInput = webDriver.FindElement(By.Id("id_order"));
             orderReferenceInput.SendKeys(orderReference);
         }
 
         public void SetAttachFile(string filePath)
         {
-            IWebElement attachFileInput = webDriver.FindElement(By.Id("fileUpload"));
-            IWebElement attachFileNameText = webDriver.FindElement(By.XPath("//span[@class='filename']"));
             wait.Until(ExpectedConditions.TextToBePresentInElement(attachFileNameText, "No file selected"));
             attachFileInput.SendKeys(filePath);
         }
-
+        
         public void SetMessage(string message)
-        {
-            IWebElement messageInput = webDriver.FindElement(By.Id("message"));
+        {            
             messageInput.SendKeys(message);
         }
 
         public void ClickSend()
-        {
-            IWebElement sendButton = webDriver.FindElement(By.Id("submitMessage"));
+        {            
             sendButton.Click();
         }
 
         public string GetConfirmationLabel()
         {
-            IWebElement confirmationLabel = webDriver.FindElement(By.XPath("//div[@id='center_column']/p"));
-            string confirmationMessage = confirmationLabel.Text;
-            return confirmationMessage;
+            return confirmationLabel.Text;
         }        
 
         public string GetErrorLabel()
-        {
-            IWebElement errorLabel = webDriver.FindElement(By.XPath("//div[@class='alert alert-danger']/ol/li"));
-            string errorMessage = errorLabel.Text;
-            return errorMessage;
+        {            
+            return errorLabel.Text;
         }
 
         public void FillContactUsForm(Options option, string value, string email, string orderReference,

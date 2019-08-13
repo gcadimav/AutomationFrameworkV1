@@ -1,27 +1,20 @@
-﻿using OpenQA.Selenium;
+﻿using PageObjectLibrary.Base;
+using PageObjectLibrary.PageObjects.AutomationPractice;
 using PageObjectLibrary.PageObjects.AutomationPractice.ContactUs;
-using PageObjectLibrary.PageObjects.AutomationPractice.Menu;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PageObjectLibrary.Steps.AutomationPractice.Navigation
 {
-    public class NavigationSteps
+    public class NavigationSteps: BaseStep
     {
-        IWebDriver webDriver;
-
-        public NavigationSteps(IWebDriver webDriver)
+        public NavigationSteps()
         {
-            this.webDriver = webDriver;
+            NavigateToInitialSite();
         }
 
         public ContactUsPage GoToContactUsPage()
-        {
-            MenuPage menuPage = new MenuPage(webDriver);
-            ContactUsPage contactUsPage = menuPage.ClickContactUs();            
+        {            
+            var homePage = new HomePage();
+            var contactUsPage = homePage.ClickContactUs();            
             return contactUsPage;
         }
     }

@@ -1,28 +1,17 @@
 ﻿using OpenQA.Selenium;
+using PageObjectLibrary.Base;
 using PageObjectLibrary.PageObjects.AutomationPractice.ContactUs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PageObjectLibrary.PageObjects.AutomationPractice.Menu
 {
-    public class MenuPage
+    public class MenuPage: BasePage
     {
-
-        IWebDriver webDriver;
-
-        public MenuPage(IWebDriver webDriver)
-        {
-            this.webDriver = webDriver;
-        }
+        private IWebElement contactUsButton => GetDriver().FindElement(By.XPath("//a[@title='Contact Us']"));        
         
         public ContactUsPage ClickContactUs()
         {
-            IWebElement contactUsButton = webDriver.FindElement(By.XPath("//a[@title='Contact Us']"));
             contactUsButton.Click();
-            ContactUsPage contactUsPage = new ContactUsPage(webDriver);
+            var contactUsPage = new ContactUsPage();
             return contactUsPage;
         }
     }
