@@ -16,13 +16,13 @@ namespace PageObjectLibrary.Initializer
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.AddArgument("--start-maximized");
                     chromeOptions.AddArgument("--incognito");
-                    SetDriver(new ChromeDriver(@"C:\SeleniumWebDrivers", chromeOptions));
+                    SetDriver(new ChromeDriver(@"C:\Selenium WebDriver", chromeOptions));
                     break;
                 case "Firefox":
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     firefoxOptions.AddArgument("--start-maximized");
                     firefoxOptions.AddArgument("--incognito");
-                    SetDriver(new FirefoxDriver(@"C:\SeleniumWebDrivers", firefoxOptions));
+                    SetDriver(new FirefoxDriver(@"C:\Selenium WebDriver", firefoxOptions));
                     break;
                     ////other browsers
             }
